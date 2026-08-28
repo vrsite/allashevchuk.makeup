@@ -24,6 +24,29 @@ const bookingModal = document.querySelector('.booking-modal');
 const bookingDialog = bookingModal?.querySelector('.booking-dialog');
 const bookingClose = bookingModal?.querySelector('.booking-close');
 let lastFocused = null;
+let lockedScrollY = 0;
+
+function lockPageScroll() {
+  if (body.classList.contains('modal-open')) return;
+  lockedScrollY = window.scrollY;
+  body.style.position = 'fixed';
+  body.style.top = `-${lockedScrollY}px`;
+  body.style.left = '0';
+  body.style.right = '0';
+  body.style.width = '100%';
+  body.classList.add('modal-open');
+}
+
+function unlockPageScroll() {
+  if (!body.classList.contains('modal-open')) return;
+  body.classList.remove('modal-open');
+  body.style.position = '';
+  body.style.top = '';
+  body.style.left = '';
+  body.style.right = '';
+  body.style.width = '';
+  window.scrollTo(0, lockedScrollY);
+}
 
 function setBooking(open) {
   if (!bookingModal) return;
@@ -31,13 +54,13 @@ function setBooking(open) {
     lastFocused = document.activeElement;
     bookingModal.classList.add('open');
     bookingModal.setAttribute('aria-hidden', 'false');
-    body.classList.add('modal-open');
-    window.setTimeout(() => bookingClose?.focus(), 60);
+    lockPageScroll();
+    window.setTimeout(() => bookingDialog?.focus({ preventScroll:true }), 60);
   } else {
     bookingModal.classList.remove('open');
     bookingModal.setAttribute('aria-hidden', 'true');
-    body.classList.remove('modal-open');
-    lastFocused?.focus?.();
+    unlockPageScroll();
+    lastFocused?.focus?.({ preventScroll:true });
   }
 }
 
