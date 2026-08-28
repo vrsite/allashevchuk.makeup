@@ -150,9 +150,7 @@ body.menu-open .menu-overlay { transform:translateY(0); pointer-events:auto; }
 .reveal.visible { opacity:1; transform:none; }
 
 @media (max-width: 1024px) {
-  .header-actions {
-  margin-left: auto;
-}
+  .header-actions { margin-left:auto; }
   .desktop-nav { display:none; }
   .menu-toggle { display:block; }
   .header-book { margin-left:auto; }
@@ -174,24 +172,24 @@ body.menu-open .menu-overlay { transform:translateY(0); pointer-events:auto; }
   :root { --header-h:70px; }
   .container { width:min(100% - 30px, 1440px); }
   .section { padding:84px 0; }
-  .site-header { padding:0 15px; }
+  .site-header { position:sticky; inset:0 0 auto; padding:0 15px; }
   .brand-main { font-size:16px; }
   .brand-sub { font-size:7px; }
   .header-book { display:none; }
   .menu-overlay-inner { padding:110px 20px 28px; grid-template-columns:1fr; }
   .menu-index { display:none; }
   .overlay-nav a {
-  font-size: clamp(32px, 9.5vw, 44px);
-  line-height: 1;
-  padding: 10px 0 14px;
-  letter-spacing: -0.025em;
-}
+    font-size:clamp(32px,9.5vw,44px);
+    line-height:1;
+    padding:10px 0 14px;
+    letter-spacing:-.025em;
+  }
   .menu-footer { grid-column:1; gap:16px; }
 
   .hero { min-height:100svh; align-items:flex-end; background:#000; }
-  .hero-bg { inset:var(--header-h) 0 auto; height:54svh; background-position:68% 35%; transform:none; }
+  .hero-bg { inset:0 0 auto; height:54svh; background-position:68% 35%; transform:none; }
   .hero-shade { background:linear-gradient(0deg, #000 0%, #000 37%, rgba(0,0,0,.86) 45%, rgba(0,0,0,.08) 72%, rgba(0,0,0,.18) 100%); }
-  .hero-content { padding-top:calc(54svh + var(--header-h)); padding-bottom:66px; }
+  .hero-content { padding-top:54svh; padding-bottom:66px; }
   .hero-copy { width:100%; max-width:none; }
   .eyebrow { margin-bottom:16px; }
   .hero h1 { max-width:100%; font-size:clamp(54px,16.5vw,72px); line-height:.8; letter-spacing:-.045em; }
@@ -249,7 +247,9 @@ body.modal-open { overflow:hidden; }
 .desktop-nav a:hover::after, .desktop-nav a.active::after { right:0; }
 
 /* keep the approved hero composition; only add refined entrance */
-.hero-bg { transform:scale(1.025); will-change:transform; transition:filter 1s ease; }
+@media (min-width:761px) {
+  .hero-bg { transform:scale(1.025); will-change:transform; transition:filter 1s ease; }
+}
 .hero-copy { opacity:1; }
 body:not(.loaded) .hero-copy > * { opacity:0; transform:translateY(18px); }
 body.loaded .hero-copy > * { animation:heroIn .8s cubic-bezier(.2,.75,.25,1) both; }
