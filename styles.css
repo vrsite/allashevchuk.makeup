@@ -150,6 +150,9 @@ body.menu-open .menu-overlay { transform:translateY(0); pointer-events:auto; }
 .reveal.visible { opacity:1; transform:none; }
 
 @media (max-width: 1024px) {
+  .header-actions {
+  margin-left: auto;
+}
   .desktop-nav { display:none; }
   .menu-toggle { display:block; }
   .header-book { margin-left:auto; }
@@ -177,7 +180,12 @@ body.menu-open .menu-overlay { transform:translateY(0); pointer-events:auto; }
   .header-book { display:none; }
   .menu-overlay-inner { padding:110px 20px 28px; grid-template-columns:1fr; }
   .menu-index { display:none; }
-  .overlay-nav a { font-size:clamp(38px,13vw,64px); gap:12px; }
+  .overlay-nav a {
+  font-size: clamp(32px, 9.5vw, 44px);
+  line-height: 1;
+  padding: 10px 0 14px;
+  letter-spacing: -0.025em;
+}
   .menu-footer { grid-column:1; gap:16px; }
 
   .hero { min-height:100svh; align-items:flex-end; background:#000; }
