@@ -39,13 +39,17 @@ function lockPageScroll() {
 
 function unlockPageScroll() {
   if (!body.classList.contains('modal-open')) return;
+  const restoreY = lockedScrollY;
   body.classList.remove('modal-open');
   body.style.position = '';
   body.style.top = '';
   body.style.left = '';
   body.style.right = '';
   body.style.width = '';
-  window.scrollTo(0, lockedScrollY);
+  window.scrollTo({ top:restoreY, left:0, behavior:'auto' });
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top:restoreY, left:0, behavior:'auto' });
+  });
 }
 
 function setBooking(open) {
@@ -60,7 +64,9 @@ function setBooking(open) {
     bookingModal.classList.remove('open');
     bookingModal.setAttribute('aria-hidden', 'true');
     unlockPageScroll();
-    lastFocused?.focus?.({ preventScroll:true });
+    if (!window.matchMedia('(pointer:coarse)').matches) {
+      lastFocused?.focus?.({ preventScroll:true });
+    }
   }
 }
 
