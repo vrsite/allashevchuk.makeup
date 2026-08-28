@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://allashevchuk.com/sitemap.xml
