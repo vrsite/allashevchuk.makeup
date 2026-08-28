@@ -40,15 +40,24 @@ function lockPageScroll() {
 function unlockPageScroll() {
   if (!body.classList.contains('modal-open')) return;
   const restoreY = lockedScrollY;
+  const root = document.documentElement;
+  const previousScrollBehavior = root.style.scrollBehavior;
+
+  // Safari otherwise applies the site's smooth scrolling to the restoration,
+  // making the page visibly travel after the modal is closed.
+  root.style.scrollBehavior = 'auto';
   body.classList.remove('modal-open');
   body.style.position = '';
   body.style.top = '';
   body.style.left = '';
   body.style.right = '';
   body.style.width = '';
-  window.scrollTo({ top:restoreY, left:0, behavior:'auto' });
+  window.scrollTo(0, restoreY);
   window.requestAnimationFrame(() => {
-    window.scrollTo({ top:restoreY, left:0, behavior:'auto' });
+    window.scrollTo(0, restoreY);
+    window.requestAnimationFrame(() => {
+      root.style.scrollBehavior = previousScrollBehavior;
+    });
   });
 }
 
